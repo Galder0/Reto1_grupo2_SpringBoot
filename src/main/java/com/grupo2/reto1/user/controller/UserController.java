@@ -12,41 +12,49 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.grupo2.reto1.user.model.User;
 import com.grupo2.reto1.user.model.UserPostRequest;
 import com.grupo2.reto1.user.model.UserServiceResponse;
 import com.grupo2.reto1.user.service.UserService;
 
 import jakarta.validation.Valid;
 
-@RequestMapping("api")
+@RequestMapping("/api/users")
+@RestController
 public class UserController {
 	
 	@Autowired
 	UserService userService;
 	
-	@GetMapping("/users")
-	public ResponseEntity<List<UserServiceResponse>> getUsers()  {
-		return new ResponseEntity<List<UserServiceResponse>>(userService.getAllUsers(), HttpStatus.OK);
+	@GetMapping
+	public ResponseEntity<List<UserServiceResponse>> getAllUsers(){
+		return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.ACCEPTED);
 	}
-
-	@GetMapping("/users/{id}")
-	public ResponseEntity<UserServiceResponse> getUser(@PathVariable("id") Integer id) {
-		return new ResponseEntity<UserServiceResponse>(userService.getUsersById(id), HttpStatus.OK);
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<UserServiceResponse> getUserById(@PathVariable("id") Integer id) {
+		return new ResponseEntity<>(userService.getUserById(id), HttpStatus.ACCEPTED);
 	}
-
-	@PostMapping("/users")
-	public ResponseEntity<Integer> createUser(@Valid @RequestBody UserPostRequest userDTO) {
-		User user = new User(userDTO.getEmail(), userDTO.getSurname(), userDTO.getEmail(), userDTO.getPassword());
-		return new ResponseEntity<Integer>(userService.createUser(user), HttpStatus.CREATED);
+	
+	@PostMapping
+	public ResponseEntity<Integer> createUser(@Valid @RequestBody UserPostRequest userPostRequest){
+		UserServiceResponse userServiceResponse = new UserServiceResponse(userPostRequest.getName(), userPostRequest.getSurname(), userPostRequest.getEmail(), userPostRequest.getPassword());
+		return new ResponseEntity<> (userService.createUser(userServiceResponse), HttpStatus.CREATED);
 	}
-
-	@PutMapping("/users/{id}")
-	public ResponseEntity<Integer> updateUser(@PathVariable("id") Integer id, @Valid @RequestBody UserPostRequest userDTO) {
-		User user = new User(id, userDTO.getEmail(), userDTO.getSurname(), userDTO.getEmail(), userDTO.getPassword());
-		return new ResponseEntity<Integer>(userService.updateUser(user), HttpStatus.CREATED);
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<Integer> updateUser(@PathVariable("id") Integer id, @RequestBody UserPostRequest userPostRequest){
+		UserServiceResponse userServiceResponse = new UserServiceResponse(userPostRequest.getName(), userPostRequest.getSurname(), userPostRequest.getEmail(), userPostRequest.getPassword());
+		userServiceResponse.setId(id);
+		userService.updateUser(userServiceResponse);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Integer> deleteUser(@PathVariable("id")Integer id){
+		userService.deleteUser(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
 	@DeleteMapping("/users/{id}")
 	public ResponseEntity<Integer> deleteUser(@PathVariable("id") Integer id) {

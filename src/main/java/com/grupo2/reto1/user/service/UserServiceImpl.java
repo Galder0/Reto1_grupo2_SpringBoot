@@ -18,45 +18,58 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<UserServiceResponse> getAllUsers() {
-		List<UserServiceResponse> response = new ArrayList<UserServiceResponse>();
-		List<User> userlist = userRepository.findAll();
-		for (User user : userlist) {
+    
+		List<UserServiceResponse> response = new ArrayList<>();
+		List<User> UserList = userRepository.getAllUsers();
+		for (User user : UserList) {
 			response.add(new UserServiceResponse(
-					user.getId(), 
-					user.getName(), 
-					user.getSurname(), 
+					user.getId(),
+					user.getName(),
+					user.getSurname(),
 					user.getEmail(),
-					user.getPassword()
-					));
+					user.getPassword()));
 		}
 		return response;
 	}
 
 	@Override
-	public UserServiceResponse getUsersById(Integer id) {
-		User user = userRepository.findById(id);
-		return new UserServiceResponse(
-				user.getId(), 
-				user.getName(), 
-				user.getSurname(), 
+	public UserServiceResponse getUserById(Integer id) {
+		UserServiceResponse response = new UserServiceResponse();
+		User user = userRepository.getUserById(id);
+		response = (new UserServiceResponse(
+				user.getId(),
+				user.getName(),
+				user.getSurname(),
 				user.getEmail(),
-				user.getPassword()
-				);
+				user.getPassword()));
+		return response;
 	}
 
 	@Override
-	public int createUser(User user) {
-		return userRepository.create(user);
+	public int createUser(UserServiceResponse userServiceResponse) {
+		User response = new User(
+				userServiceResponse.getName(),
+				userServiceResponse.getSurname(),
+				userServiceResponse.getEmail(),
+				userServiceResponse.getPassword());
+		
+		response.setId((int) 1L);
+		return userRepository.createUser(response);
 	}
 
 	@Override
-	public int updateUser(User user) {
-		return userRepository.update(user);
+	public int updateUser(UserServiceResponse userServiceResponse) {
+		User response = new User(
+				userServiceResponse.getId(),
+				userServiceResponse.getName(),
+				userServiceResponse.getSurname(),
+				userServiceResponse.getEmail(),
+				userServiceResponse.getPassword());
+		return userRepository.updateUser(response);
 	}
 
 	@Override
-	public int deleteUserById(Integer id) {
-		return userRepository.deleteById(id);
-	}
+	public int deleteUser(Integer id) {
+		return userRepository.deleteUser(id);
 
 }
