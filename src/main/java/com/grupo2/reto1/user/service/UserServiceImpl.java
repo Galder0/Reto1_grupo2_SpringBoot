@@ -11,13 +11,14 @@ import com.grupo2.reto1.user.model.UserServiceResponse;
 import com.grupo2.reto1.user.repository.UserRepository;
 
 @Service
-public class UserServiceImpl implements UserService{
-	
+public class UserServiceImpl implements UserService {
+
 	@Autowired
 	UserRepository userRepository;
 
 	@Override
 	public List<UserServiceResponse> getAllUsers() {
+    
 		List<UserServiceResponse> response = new ArrayList<>();
 		List<User> UserList = userRepository.getAllUsers();
 		for (User user : UserList) {
@@ -70,6 +71,5 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public int deleteUser(Integer id) {
 		return userRepository.deleteUser(id);
-	}
 
 }

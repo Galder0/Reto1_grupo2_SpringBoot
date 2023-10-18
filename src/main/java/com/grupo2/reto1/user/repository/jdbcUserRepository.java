@@ -41,6 +41,4 @@ public class jdbcUserRepository implements UserRepository{
 	public int deleteUser(Integer id) {
 		return jdbcTemplate.update("Delete from users_table where id = ?", id);
 	}
-
-	
 }
