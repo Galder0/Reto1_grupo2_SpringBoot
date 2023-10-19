@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.grupo2.reto1.song.model.SongPostRequest;
+import com.grupo2.reto1.song.model.SongServiceResponse;
 import com.grupo2.reto1.user.model.UserPostRequest;
 import com.grupo2.reto1.user.model.UserServiceResponse;
 import com.grupo2.reto1.user.service.UserService;
@@ -54,6 +56,26 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Integer> deleteUser(@PathVariable("id")Integer id){
 		userService.deleteUser(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	//GET FAVORITE SONGS
+	@GetMapping("/{id}/favourites")
+	public ResponseEntity<UserServiceResponse> getUserWithItsFavourites(@PathVariable("id") Integer id) {
+		return new ResponseEntity<>(userService.getUserWithItsFavourites(id), HttpStatus.ACCEPTED);
+	}
+	
+	//DELETE SONG FROM FAVORITE
+	@DeleteMapping("/{id}/favourites/{idSong}")
+	public ResponseEntity<Integer> deleteFavouriteFromUser(@PathVariable("id")Integer id, @PathVariable("idSong")Integer idSong){
+		userService.deleteFavouriteFromUser(idSong, id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	//CREATE FAVORITE SONG
+	@PutMapping("/{id}/favourites/{idSong}")
+	public ResponseEntity<Integer> createFavouriteSongFromUser(@PathVariable("id")Integer id, @PathVariable("idSong")Integer idSong){
+		return new ResponseEntity<> (userService.createFavouriteSongFromUser(idSong, id), HttpStatus.CREATED);
 		return new ResponseEntity<Integer>(HttpStatus.NO_CONTENT);
 	}
 	
