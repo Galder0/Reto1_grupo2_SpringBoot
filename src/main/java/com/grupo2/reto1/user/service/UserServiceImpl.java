@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Integer logUser(UserPostRequest userDTO) {
 		Integer response = 0;
-		List<User> userlist = userRepository.findAll();
+		List<User> userlist = userRepository.getAllUsers();
 		for (User user : userlist) {
 			if (user.getEmail().equals(userDTO.getEmail()) && user.getPassword().equals(userDTO.getPassword())) {
 				response = 1;
