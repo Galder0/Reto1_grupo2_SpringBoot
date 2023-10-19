@@ -20,36 +20,42 @@ import com.grupo2.reto1.user.service.UserService;
 
 import jakarta.validation.Valid;
 
-@RequestMapping("api")
+@RequestMapping("api/users")
 public class UserController {
 	
 	@Autowired
 	UserService userService;
 	
-	@GetMapping("/users")
+	@GetMapping
 	public ResponseEntity<List<UserServiceResponse>> getUsers()  {
 		return new ResponseEntity<List<UserServiceResponse>>(userService.getAllUsers(), HttpStatus.OK);
 	}
 
-	@GetMapping("/users/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<UserServiceResponse> getUser(@PathVariable("id") Integer id) {
 		return new ResponseEntity<UserServiceResponse>(userService.getUsersById(id), HttpStatus.OK);
 	}
 
-	@PostMapping("/users")
+	@PostMapping
 	public ResponseEntity<Integer> createUser(@Valid @RequestBody UserPostRequest userDTO) {
 		User user = new User(userDTO.getEmail(), userDTO.getSurname(), userDTO.getEmail(), userDTO.getPassword());
 		return new ResponseEntity<Integer>(userService.createUser(user), HttpStatus.CREATED);
 	}
 
-	@PutMapping("/users/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Integer> updateUser(@PathVariable("id") Integer id, @Valid @RequestBody UserPostRequest userDTO) {
 		User user = new User(id, userDTO.getEmail(), userDTO.getSurname(), userDTO.getEmail(), userDTO.getPassword());
 		return new ResponseEntity<Integer>(userService.updateUser(user), HttpStatus.CREATED);
 	}
 
-	@DeleteMapping("/users/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Integer> deleteUser(@PathVariable("id") Integer id) {
 		return new ResponseEntity<Integer>(userService.deleteUserById(id), HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/loggin")
+	public ResponseEntity<Integer> logginUser(@Valid @RequestBody UserPostRequest userDTO) {
+		UserPostRequest user = new UserPostRequest(userDTO.getEmail(), userDTO.getPassword());
+		return new ResponseEntity<Integer>(userService.logUser(user), HttpStatus.OK);
 	}
 }
