@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.grupo2.reto1.user.model.User;
+import com.grupo2.reto1.user.model.UserPostRequest;
 import com.grupo2.reto1.user.model.UserServiceResponse;
 import com.grupo2.reto1.user.repository.UserRepository;
 
@@ -72,5 +73,18 @@ public class UserServiceImpl implements UserService {
 	public int deleteUser(Integer id) {
 		return userRepository.deleteUser(id);
 	}
+
+	@Override
+	public Integer logUser(UserPostRequest userDTO) {
+		Integer response = 0;
+		List<User> userlist = userRepository.findAll();
+		for (User user : userlist) {
+			if (user.getEmail().equals(userDTO.getEmail()) && user.getPassword().equals(userDTO.getPassword())) {
+				response = 1;
+			}
+		}
+		return response;
+	}
+
 }
 	
