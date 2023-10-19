@@ -10,6 +10,7 @@ import com.grupo2.reto1.song.model.SongServiceResponse;
 import com.grupo2.reto1.song.repository.SongRepository;
 import com.grupo2.reto1.song.service.SongService;
 import com.grupo2.reto1.user.model.User;
+import com.grupo2.reto1.user.model.UserPostRequest;
 import com.grupo2.reto1.user.model.UserServiceResponse;
 import com.grupo2.reto1.user.repository.UserRepository;
 
@@ -79,6 +80,18 @@ public class UserServiceImpl implements UserService {
 		return userRepository.deleteUser(id);
 	}
 
+	@Override
+	public Integer logUser(UserPostRequest userDTO) {
+		Integer response = 0;
+		List<User> userlist = userRepository.getAllUsers();
+		for (User user : userlist) {
+			if (user.getEmail().equals(userDTO.getEmail()) && user.getPassword().equals(userDTO.getPassword())) {
+				response = 1;
+			}
+		}
+		return response;
+	}
+
 	//Get the favorite songs of the user
 	@Override
 	public UserServiceResponse getUserWithItsFavourites(Integer id) {
@@ -106,3 +119,4 @@ public class UserServiceImpl implements UserService {
 		return songService.createFavouriteSongFromUser(idSong, id);
 	}
 }
+	

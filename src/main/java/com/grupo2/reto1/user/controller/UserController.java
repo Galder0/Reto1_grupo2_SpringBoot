@@ -76,5 +76,12 @@ public class UserController {
 	@PutMapping("/{id}/favourites/{idSong}")
 	public ResponseEntity<Integer> createFavouriteSongFromUser(@PathVariable("id")Integer id, @PathVariable("idSong")Integer idSong){
 		return new ResponseEntity<> (userService.createFavouriteSongFromUser(idSong, id), HttpStatus.CREATED);
+		return new ResponseEntity<Integer>(HttpStatus.NO_CONTENT);
+	}
+	
+	@GetMapping("/{id}/loggin")
+	public ResponseEntity<Integer> logginUser(@Valid @RequestBody UserPostRequest userPostRequest) {
+		UserPostRequest user = new UserPostRequest(userPostRequest.getEmail(), userPostRequest.getPassword());
+		return new ResponseEntity<Integer>(userService.logUser(user), HttpStatus.OK);
 	}
 }
