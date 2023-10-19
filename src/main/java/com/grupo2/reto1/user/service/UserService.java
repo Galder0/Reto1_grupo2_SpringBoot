@@ -9,9 +9,14 @@ import com.grupo2.reto1.user.model.UserServiceResponse;
 public interface UserService {
 
 	List<UserServiceResponse> getAllUsers();
-	UserServiceResponse getUsersById(Integer id);
-	int createUser(User user);
-	int updateUser(User user);
-	int deleteUserById(Integer id);
-	Integer logUser(UserPostRequest user);
+  
+	UserServiceResponse getUserById(Integer id);
+
+	int createUser(UserServiceResponse userServiceResponse);
+
+	int updateUser(UserServiceResponse userServiceResponse);
+
+	int deleteUser(Integer id);
+
+  Integer logUser(UserPostRequest user);
 }

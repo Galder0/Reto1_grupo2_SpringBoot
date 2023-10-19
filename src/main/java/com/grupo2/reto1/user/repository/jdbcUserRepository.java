@@ -16,44 +16,29 @@ public class jdbcUserRepository implements UserRepository{
 	JdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<User> findAll() {
-		return jdbcTemplate.query("SELECT * FROM users_table;", BeanPropertyRowMapper.newInstance(User.class));
+	public List<User> getAllUsers() {
+		return jdbcTemplate.query("Select * from users_table", BeanPropertyRowMapper.newInstance(User.class));
 	}
 
 	@Override
-	public User findById(Integer id) {
-		return jdbcTemplate.queryForObject("SELECT * FROM users_table where ID = ?",BeanPropertyRowMapper.newInstance(User.class), id);
+	public User getUserById(Integer id) {
+		return jdbcTemplate.queryForObject("Select * from users_table where id = ?", BeanPropertyRowMapper.newInstance(User.class), id);
 	}
 
 	@Override
-	public int create(User user) {
-		return jdbcTemplate.update(
-				"INSERT INTO users_table (id, name, surname, email, password) VALUES(?, ?, ?, ?, ?)",
-				new Object[] { 
-						user.getId(),
-						user.getName(),
-						user.getSurname(),
-						user.getEmail(),
-						user.getPassword() 
-		});
+	public int createUser(User user) {
+		return jdbcTemplate.update("Insert into users_table (name, surname, email, password) VALUES(?,?,?,?)",
+				new Object[] {user.getName(), user.getSurname(), user.getEmail(), user.getPassword()});
 	}
 
 	@Override
-	public int update(User user) {
-		return jdbcTemplate.update(
-				"UPDATE users_table SET name = ?, surname = ?, email = ?, password = ? WHERE id = ?",
-				new Object[] { 
-						user.getId(),
-						user.getName(),
-						user.getSurname(),
-						user.getEmail(),
-						user.getPassword() 
-		});
+	public int updateUser(User user) {
+		return jdbcTemplate.update("Update users_table set name = ?, surname = ?, email = ?, password = ? where id = ?",
+				new Object[] {user.getName(), user.getSurname(), user.getEmail(), user.getPassword(), user.getId()});
 	}
 
 	@Override
-	public int deleteById(Integer id) {
-		return jdbcTemplate.update("DELETE FROM users_table WHERE id = ?", id);
+	public int deleteUser(Integer id) {
+		return jdbcTemplate.update("Delete from users_table where id = ?", id);
 	}
-
 }
