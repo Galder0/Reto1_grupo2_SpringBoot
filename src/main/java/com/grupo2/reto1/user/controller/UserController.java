@@ -75,8 +75,7 @@ public class UserController {
 	//CREATE FAVORITE SONG
 	@PutMapping("/{id}/favourites/{idSong}")
 	public ResponseEntity<Integer> createFavouriteSongFromUser(@PathVariable("id")Integer id, @PathVariable("idSong")Integer idSong){
-		return new ResponseEntity<> (userService.createFavouriteSongFromUser(idSong, id), HttpStatus.CREATED);
-		return new ResponseEntity<Integer>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<> (userService.createFavouriteSongFromUser(idSong, id), HttpStatus.ACCEPTED);
 	}
 	
 	@GetMapping("/{id}/loggin")
