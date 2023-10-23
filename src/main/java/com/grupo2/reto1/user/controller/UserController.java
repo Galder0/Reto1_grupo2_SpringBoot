@@ -23,26 +23,26 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/users")
 @RestController
 public class UserController {
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	@GetMapping
 	public ResponseEntity<List<UserServiceResponse>> getAllUsers(){
 		return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.ACCEPTED);
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<UserServiceResponse> getUserById(@PathVariable("id") Integer id) {
 		return new ResponseEntity<>(userService.getUserById(id), HttpStatus.ACCEPTED);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<Integer> createUser(@Valid @RequestBody UserPostRequest userPostRequest){
 		UserServiceResponse userServiceResponse = new UserServiceResponse(userPostRequest.getName(), userPostRequest.getSurname(), userPostRequest.getEmail(), userPostRequest.getPassword());
 		return new ResponseEntity<> (userService.createUser(userServiceResponse), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/{id}")
 	public ResponseEntity<Integer> updateUser(@PathVariable("id") Integer id, @RequestBody UserPostRequest userPostRequest){
 		UserServiceResponse userServiceResponse = new UserServiceResponse(userPostRequest.getName(), userPostRequest.getSurname(), userPostRequest.getEmail(), userPostRequest.getPassword());
@@ -50,14 +50,9 @@ public class UserController {
 		userService.updateUser(userServiceResponse);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Integer> deleteUser(@PathVariable("id")Integer id){
 		userService.deleteUser(id);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
-	@DeleteMapping("/users/{id}")
-	public ResponseEntity<Integer> deleteUser(@PathVariable("id") Integer id) {
-		return new ResponseEntity<Integer>(userService.deleteUserById(id), HttpStatus.OK);
-	}
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);}
 }
