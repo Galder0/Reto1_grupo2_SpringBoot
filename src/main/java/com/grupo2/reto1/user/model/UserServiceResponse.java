@@ -1,8 +1,6 @@
 package com.grupo2.reto1.user.model;
 
 import java.util.List;
-
-import com.grupo2.reto1.song.model.Song;
 import com.grupo2.reto1.song.model.SongServiceResponse;
 
 public class UserServiceResponse {

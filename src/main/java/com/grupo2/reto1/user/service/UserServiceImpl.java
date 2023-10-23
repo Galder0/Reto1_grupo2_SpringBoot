@@ -89,7 +89,31 @@ public class UserServiceImpl implements UserService {
 		}
 		return response;
 	}
-
-
+	//Get the favorite songs of the user
+	@Override
+	public UserServiceResponse getUserWithItsFavourites(Integer id) {
+		UserServiceResponse response = new UserServiceResponse();
+		User user = userRepository.getUserById(id);
+		response = (new UserServiceResponse(
+				user.getId(),
+				user.getName(),
+				user.getSurname(),
+				user.getEmail(),
+				user.getPassword()));
+		response.setFavourites(songService.getAllFavouritesFromUser(id));
+		return response;
+	}
+	
+	//Delete from favorites
+	@Override
+	public int deleteFavouriteFromUser(Integer id, Integer userId) {
+		return songService.deleteFavouriteSong(id, userId);
+	}
+	
+	//Create favorites
+	@Override
+	public int createFavouriteSongFromUser(Integer idSong, Integer id) {
+		return songService.createFavouriteSongFromUser(idSong, id);
+	}
 }
 	
