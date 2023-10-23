@@ -30,6 +30,10 @@ public class UserPostRequest {
     @NotBlank
 	private String password;
 
+	public UserPostRequest() {
+		super();
+	}
+	
 	public UserPostRequest(@NotNull(message = "User name can't be null.") @NotEmpty @NotBlank String name,
 			@NotNull(message = "User surname can't be null.") @NotEmpty @NotBlank String surname,
 			@NotNull(message = "User email can't be null.") @NotEmpty @NotBlank String email,

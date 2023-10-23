@@ -77,8 +77,6 @@ public class UserServiceImpl implements UserService {
 	public int deleteUser(Integer id) {
 		return userRepository.deleteUser(id);
 	}
-<<<<<<< HEAD
-=======
 
 	@Override
 	public Integer logUser(UserPostRequest userDTO) {
@@ -117,6 +115,5 @@ public class UserServiceImpl implements UserService {
 	public int createFavouriteSongFromUser(Integer idSong, Integer id) {
 		return songService.createFavouriteSongFromUser(idSong, id);
 	}
->>>>>>> 8afc691b9c91043259e3fbc16506215571f1f419
 }
 	

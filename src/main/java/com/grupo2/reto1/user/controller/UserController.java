@@ -54,12 +54,8 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Integer> deleteUser(@PathVariable("id")Integer id){
 		userService.deleteUser(id);
-<<<<<<< HEAD
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);}
-}
-=======
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
+		}
 	
 	//GET FAVORITE SONGS
 	@GetMapping("/{id}/favourites")
@@ -88,4 +84,3 @@ public class UserController {
 	}
 
 }
->>>>>>> 8afc691b9c91043259e3fbc16506215571f1f419
