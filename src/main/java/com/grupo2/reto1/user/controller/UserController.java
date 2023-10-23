@@ -62,4 +62,5 @@ public class UserController {
 		UserPostRequest user = new UserPostRequest(userPostRequest.getEmail(), userPostRequest.getPassword());
 		return new ResponseEntity<Integer>(userService.logUser(user), HttpStatus.OK);
 	}
+
 }

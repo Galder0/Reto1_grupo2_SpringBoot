@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.grupo2.reto1.song.service.SongService;
 import com.grupo2.reto1.user.model.User;
 import com.grupo2.reto1.user.model.UserPostRequest;
 import com.grupo2.reto1.user.model.UserServiceResponse;
@@ -16,6 +17,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	SongService songService;
 
 	@Override
 	public List<UserServiceResponse> getAllUsers() {
@@ -85,6 +89,7 @@ public class UserServiceImpl implements UserService {
 		}
 		return response;
 	}
+
 
 }
 	

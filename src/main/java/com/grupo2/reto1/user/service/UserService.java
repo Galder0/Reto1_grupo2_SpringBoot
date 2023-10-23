@@ -18,5 +18,6 @@ public interface UserService {
 
 	int deleteUser(Integer id);
 
-  Integer logUser(UserPostRequest user);
+	Integer logUser(UserPostRequest user);
+
 }
