@@ -54,5 +54,38 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Integer> deleteUser(@PathVariable("id")Integer id){
 		userService.deleteUser(id);
+<<<<<<< HEAD
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);}
 }
+=======
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	//GET FAVORITE SONGS
+	@GetMapping("/{id}/favourites")
+	public ResponseEntity<UserServiceResponse> getUserWithItsFavourites(@PathVariable("id") Integer id) {
+		return new ResponseEntity<>(userService.getUserWithItsFavourites(id), HttpStatus.ACCEPTED);
+	}
+	
+	//DELETE SONG FROM FAVORITE
+	@DeleteMapping("/{id}/favourites/{idSong}")
+	public ResponseEntity<Integer> deleteFavouriteFromUser(@PathVariable("id")Integer id, @PathVariable("idSong")Integer idSong){
+		userService.deleteFavouriteFromUser(idSong, id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	//CREATE FAVORITE SONG
+	@PutMapping("/{id}/favourites/{idSong}")
+	public ResponseEntity<Integer> createFavouriteSongFromUser(@PathVariable("id")Integer id, @PathVariable("idSong")Integer idSong){
+		return new ResponseEntity<> (userService.createFavouriteSongFromUser(idSong, id), HttpStatus.CREATED);
+
+	}
+	
+	@GetMapping("/{id}/loggin")
+	public ResponseEntity<Integer> logginUser(@Valid @RequestBody UserPostRequest userPostRequest) {
+		UserPostRequest user = new UserPostRequest(userPostRequest.getEmail(), userPostRequest.getPassword());
+		return new ResponseEntity<Integer>(userService.logUser(user), HttpStatus.OK);
+	}
+
+}
+>>>>>>> 8afc691b9c91043259e3fbc16506215571f1f419

@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.grupo2.reto1.song.model.Song;
+import com.grupo2.reto1.song.model.SongServiceResponse;
 import com.grupo2.reto1.user.model.User;
 
 @Repository
@@ -41,6 +42,24 @@ public class jdbcSongRepository implements SongRepository{
 	@Override
 	public int deleteSong(Integer id) {
 		return jdbcTemplate.update("Delete from songs where id = ?", id);
+	}
+
+	//Get the favorites from user
+	@Override
+	public List<Song> getAllFavouritesFromUser(Integer id) {
+		return jdbcTemplate.query("select songs.id, songs.title, songs.author, songs.URL from songs join favourite_songs on songs.id = favourite_songs.song_id where user_id = ?", BeanPropertyRowMapper.newInstance(Song.class), id);
+	}
+
+	//Delete a favorite song given a user
+	@Override
+	public int deleteFavouriteSong(Integer id, Integer userId) {
+		return jdbcTemplate.update("Delete from favourite_songs where song_id = ? and user_id = ?", id, userId);
+	}
+
+	//Create a favorite song given a user
+	@Override
+	public int createFavouriteSongFromUser(Integer idSong, Integer id) {
+		return jdbcTemplate.update("INSERT into favourite_songs (song_id, user_id) values(?, ?)", idSong, id);
 	}
 
 }

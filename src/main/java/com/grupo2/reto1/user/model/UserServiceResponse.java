@@ -1,8 +1,7 @@
 package com.grupo2.reto1.user.model;
 
 import java.util.List;
-
-import com.grupo2.reto1.song.model.Song;
+import com.grupo2.reto1.song.model.SongServiceResponse;
 
 public class UserServiceResponse {
 	
@@ -16,7 +15,7 @@ public class UserServiceResponse {
 	
 	private String password;
 	
-	private List<Song> favourites;
+	private List<SongServiceResponse> favourites;
 	
 	public UserServiceResponse() {
 		
@@ -40,7 +39,7 @@ public class UserServiceResponse {
 	}
 
 	public UserServiceResponse(Integer id, String name, String surname, String email, String password,
-			List<Song> favourites) {
+			List<SongServiceResponse> favourites) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -90,11 +89,11 @@ public class UserServiceResponse {
 		this.password = password;
 	}
 
-	public List<Song> getFavourites() {
+	public List<SongServiceResponse> getFavourites() {
 		return favourites;
 	}
 
-	public void setFavourites(List<Song> favourites) {
+	public void setFavourites(List<SongServiceResponse> favourites) {
 		this.favourites = favourites;
 	}
 

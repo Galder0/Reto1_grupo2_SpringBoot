@@ -1,5 +1,9 @@
 package com.grupo2.reto1.user.model;
 
+import java.util.List;
+
+import com.grupo2.reto1.song.model.Song;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -26,10 +30,6 @@ public class UserPostRequest {
     @NotBlank
 	private String password;
 
-	public UserPostRequest () {
-		
-	}
-
 	public UserPostRequest(@NotNull(message = "User name can't be null.") @NotEmpty @NotBlank String name,
 			@NotNull(message = "User surname can't be null.") @NotEmpty @NotBlank String surname,
 			@NotNull(message = "User email can't be null.") @NotEmpty @NotBlank String email,
@@ -37,6 +37,13 @@ public class UserPostRequest {
 		super();
 		this.name = name;
 		this.surname = surname;
+		this.email = email;
+		this.password = password;
+	}
+	
+	public UserPostRequest(@NotNull(message = "User email can't be null.") @NotEmpty @NotBlank String email,
+			@NotNull(message = "Null password") @NotEmpty @NotBlank String password) {
+		super();
 		this.email = email;
 		this.password = password;
 	}
@@ -76,7 +83,6 @@ public class UserPostRequest {
 	@Override
 	public String toString() {
 		return "UserPostRequest [name=" + name + ", surname=" + surname + ", email=" + email + ", password=" + password
-				+ "]";
+				+ ", favourites=" + "]";
 	}
-	
 }

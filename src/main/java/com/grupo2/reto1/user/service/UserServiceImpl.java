@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.grupo2.reto1.song.service.SongService;
 import com.grupo2.reto1.user.model.User;
+import com.grupo2.reto1.user.model.UserPostRequest;
 import com.grupo2.reto1.user.model.UserServiceResponse;
 import com.grupo2.reto1.user.repository.UserRepository;
 
@@ -15,6 +17,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	SongService songService;
 
 	@Override
 	public List<UserServiceResponse> getAllUsers() {
@@ -72,4 +77,46 @@ public class UserServiceImpl implements UserService {
 	public int deleteUser(Integer id) {
 		return userRepository.deleteUser(id);
 	}
+<<<<<<< HEAD
+=======
+
+	@Override
+	public Integer logUser(UserPostRequest userDTO) {
+		Integer response = 0;
+		List<User> userlist = userRepository.getAllUsers();
+		for (User user : userlist) {
+			if (user.getEmail().equals(userDTO.getEmail()) && user.getPassword().equals(userDTO.getPassword())) {
+				response = 1;
+			}
+		}
+		return response;
+	}
+	//Get the favorite songs of the user
+	@Override
+	public UserServiceResponse getUserWithItsFavourites(Integer id) {
+		UserServiceResponse response = new UserServiceResponse();
+		User user = userRepository.getUserById(id);
+		response = (new UserServiceResponse(
+				user.getId(),
+				user.getName(),
+				user.getSurname(),
+				user.getEmail(),
+				user.getPassword()));
+		response.setFavourites(songService.getAllFavouritesFromUser(id));
+		return response;
+	}
+	
+	//Delete from favorites
+	@Override
+	public int deleteFavouriteFromUser(Integer id, Integer userId) {
+		return songService.deleteFavouriteSong(id, userId);
+	}
+	
+	//Create favorites
+	@Override
+	public int createFavouriteSongFromUser(Integer idSong, Integer id) {
+		return songService.createFavouriteSongFromUser(idSong, id);
+	}
+>>>>>>> 8afc691b9c91043259e3fbc16506215571f1f419
 }
+	
