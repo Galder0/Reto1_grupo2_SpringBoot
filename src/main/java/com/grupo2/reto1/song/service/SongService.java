@@ -2,19 +2,20 @@ package com.grupo2.reto1.song.service;
 
 import java.util.List;
 
+import com.grupo2.reto1.exceptions.SongNotFoundException;
 import com.grupo2.reto1.song.model.SongServiceResponse;
 
 public interface SongService {
 
 	List<SongServiceResponse> getAllSongs();
 
-	SongServiceResponse getSonById(Integer id);
+	SongServiceResponse getSongById(Integer id) throws SongNotFoundException;
 
 	int createSong(SongServiceResponse songServiceResponse);
 
-	int updateSong(SongServiceResponse songServiceReponse);
+	int updateSong(SongServiceResponse songServiceReponse) throws SongNotFoundException;
 
-	int deleteSong(Integer id);
+	int deleteSong(Integer id)throws SongNotFoundException;
 	
 	List<SongServiceResponse> getAllFavouritesFromUser(Integer id);
 

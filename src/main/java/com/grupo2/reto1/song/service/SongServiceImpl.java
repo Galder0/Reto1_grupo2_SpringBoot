@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.grupo2.reto1.exceptions.SongNotFoundException;
 import com.grupo2.reto1.song.model.Song;
 import com.grupo2.reto1.song.model.SongServiceResponse;
 import com.grupo2.reto1.song.repository.SongRepository;
@@ -31,7 +32,7 @@ public class SongServiceImpl implements SongService{
 	}
 
 	@Override
-	public SongServiceResponse getSonById(Integer id) {
+	public SongServiceResponse getSongById(Integer id) throws SongNotFoundException {
 		SongServiceResponse response = new SongServiceResponse();
 		Song song = songRepository.getSongById(id);
 		response = (new SongServiceResponse(
@@ -53,7 +54,7 @@ public class SongServiceImpl implements SongService{
 		}
 
 	@Override
-	public int updateSong(SongServiceResponse songServiceResponse) {
+	public int updateSong(SongServiceResponse songServiceResponse)throws SongNotFoundException  {
 		Song response = new Song(
 				songServiceResponse.getId(),
 				songServiceResponse.getTitle(),
@@ -63,8 +64,14 @@ public class SongServiceImpl implements SongService{
 	}
 
 	@Override
-	public int deleteSong(Integer id) {
-		return songRepository.deleteSong(id);
+	public int deleteSong(Integer id) throws SongNotFoundException {
+		if (getSongById(id) != null) {
+			return songRepository.deleteSong(id); 
+		}else {
+			return (Integer) null;
+		}
+//		getSongById(id);
+//		return songRepository.deleteSong(id);
 	}
 
 	//Get the favorites from user

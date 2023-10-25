@@ -7,9 +7,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.grupo2.reto1.exceptions.SongNotFoundException;
 import com.grupo2.reto1.song.model.Song;
-import com.grupo2.reto1.song.model.SongServiceResponse;
-import com.grupo2.reto1.user.model.User;
 
 @Repository
 public class jdbcSongRepository implements SongRepository{
@@ -23,8 +22,12 @@ public class jdbcSongRepository implements SongRepository{
 	}
 
 	@Override
-	public Song getSongById(Integer id) {
-		return jdbcTemplate.queryForObject("Select * from songs where id = ?", BeanPropertyRowMapper.newInstance(Song.class), id);
+	public Song getSongById(Integer id) throws SongNotFoundException{
+		try {
+			return jdbcTemplate.queryForObject("Select * from songs where id = ?", BeanPropertyRowMapper.newInstance(Song.class), id);
+		} catch(Exception e){
+			throw new SongNotFoundException("Song with the id " + id + " not found");
+		}
 	}
 
 	@Override
@@ -34,14 +37,22 @@ public class jdbcSongRepository implements SongRepository{
 	}
 
 	@Override
-	public int updateSong(Song response) {
+	public int updateSong(Song response) throws SongNotFoundException{
+		try {
 		return jdbcTemplate.update("Update songs set title = ?, author = ?, URL = ? where id = ?",
 				new Object[] {response.getTitle(), response.getAuthor(), response.getUrl(), response.getId()});
+		} catch(Exception e){
+			throw new SongNotFoundException("Song to Update not found");
+		}
 	}
 
 	@Override
-	public int deleteSong(Integer id) {
+	public int deleteSong(Integer id) throws SongNotFoundException{
+		try {
 		return jdbcTemplate.update("Delete from songs where id = ?", id);
+		} catch(Exception e){
+			throw new SongNotFoundException("Song with the id " + id + " not found");
+		}
 	}
 
 	//Get the favorites from user
