@@ -16,4 +16,6 @@ public interface UserRepository {
 
 	int deleteUser(Integer id);
 
+	User getLogedUserInfo(String userEmail);
+
 }

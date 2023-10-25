@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.grupo2.reto1.user.model.UserLoginPostRequest;
 import com.grupo2.reto1.user.model.UserPostRequest;
 import com.grupo2.reto1.user.model.UserServiceResponse;
 import com.grupo2.reto1.user.service.UserService;
@@ -73,14 +74,14 @@ public class UserController {
 	//CREATE FAVORITE SONG
 	@PutMapping("/{id}/favourites/{idSong}")
 	public ResponseEntity<Integer> createFavouriteSongFromUser(@PathVariable("id")Integer id, @PathVariable("idSong")Integer idSong){
-		return new ResponseEntity<> (userService.createFavouriteSongFromUser(idSong, id), HttpStatus.CREATED);
+		return new ResponseEntity<>(userService.createFavouriteSongFromUser(idSong, id), HttpStatus.CREATED);
 
 	}
 	
 	@GetMapping("/{id}/loggin")
-	public ResponseEntity<Integer> logginUser(@Valid @RequestBody UserPostRequest userPostRequest) {
-		UserPostRequest user = new UserPostRequest(userPostRequest.getEmail(), userPostRequest.getPassword());
-		return new ResponseEntity<Integer>(userService.logUser(user), HttpStatus.OK);
+	public ResponseEntity<UserServiceResponse> logginUser(@Valid @RequestBody UserLoginPostRequest userPostRequest) {
+		UserLoginPostRequest user = new UserLoginPostRequest(userPostRequest.getEmail(), userPostRequest.getPassword());
+		return new ResponseEntity<UserServiceResponse>(userService.logUser(user), HttpStatus.OK);
 	}
 
 }

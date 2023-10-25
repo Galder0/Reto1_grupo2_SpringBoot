@@ -44,13 +44,6 @@ public class UserPostRequest {
 		this.email = email;
 		this.password = password;
 	}
-	
-	public UserPostRequest(@NotNull(message = "User email can't be null.") @NotEmpty @NotBlank String email,
-			@NotNull(message = "Null password") @NotEmpty @NotBlank String password) {
-		super();
-		this.email = email;
-		this.password = password;
-	}
 
 	public String getName() {
 		return name;

@@ -42,4 +42,9 @@ public class jdbcUserRepository implements UserRepository{
 		return jdbcTemplate.update("Delete from users_table where id = ?", id);
 	}
 
+	@Override
+	public User getLogedUserInfo(String userEmail) {
+		return jdbcTemplate.queryForObject("SELECT users_table.id from users_table where users_table.email = ?", BeanPropertyRowMapper.newInstance(User.class), userEmail);	
+	}
+
 }
