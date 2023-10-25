@@ -54,8 +54,8 @@ public class SongController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Integer> updateSong(@PathVariable("id") Integer id, @RequestBody SongPostRequest songPostRequest){
 		SongServiceResponse songServiceReponse = new SongServiceResponse(songPostRequest.getTitle(), songPostRequest.getAuthor(), songPostRequest.getUrl());
-		songServiceReponse.setId(id);
 		try {
+			songServiceReponse.setId(id);
 			songService.updateSong(songServiceReponse);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (SongNotFoundException e) {

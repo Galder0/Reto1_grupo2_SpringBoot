@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
+import com.grupo2.reto1.exceptions.UserNotFoundException;
 import com.grupo2.reto1.user.model.UserPostRequest;
 import com.grupo2.reto1.user.model.UserServiceResponse;
 import com.grupo2.reto1.user.service.UserService;
@@ -34,7 +36,12 @@ public class UserController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<UserServiceResponse> getUserById(@PathVariable("id") Integer id) {
-		return new ResponseEntity<>(userService.getUserById(id), HttpStatus.ACCEPTED);
+		try {
+			return new ResponseEntity<>(userService.getUserById(id), HttpStatus.ACCEPTED);
+		} catch (UserNotFoundException e) {
+	        throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+
+		}
 	}
 	
 	@PostMapping
@@ -47,20 +54,33 @@ public class UserController {
 	public ResponseEntity<Integer> updateUser(@PathVariable("id") Integer id, @RequestBody UserPostRequest userPostRequest){
 		UserServiceResponse userServiceResponse = new UserServiceResponse(userPostRequest.getName(), userPostRequest.getSurname(), userPostRequest.getEmail(), userPostRequest.getPassword());
 		userServiceResponse.setId(id);
-		userService.updateUser(userServiceResponse);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		try {
+			userService.updateUser(userServiceResponse);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (UserNotFoundException e) {
+	        throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+
+		}
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Integer> deleteUser(@PathVariable("id")Integer id){
-		userService.deleteUser(id);
+		try {
+			userService.deleteUser(id);
+		} catch (UserNotFoundException e) {
+			  throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+		}
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 	//GET FAVORITE SONGS
 	@GetMapping("/{id}/favourites")
 	public ResponseEntity<UserServiceResponse> getUserWithItsFavourites(@PathVariable("id") Integer id) {
-		return new ResponseEntity<>(userService.getUserWithItsFavourites(id), HttpStatus.ACCEPTED);
+		try {
+			return new ResponseEntity<>(userService.getUserWithItsFavourites(id), HttpStatus.ACCEPTED);
+		} catch (UserNotFoundException e) {
+			  throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+		}
 	}
 	
 	//DELETE SONG FROM FAVORITE

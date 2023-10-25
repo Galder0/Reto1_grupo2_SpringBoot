@@ -55,12 +55,16 @@ public class SongServiceImpl implements SongService{
 
 	@Override
 	public int updateSong(SongServiceResponse songServiceResponse)throws SongNotFoundException  {
-		Song response = new Song(
-				songServiceResponse.getId(),
-				songServiceResponse.getTitle(),
-				songServiceResponse.getAuthor(),
-				songServiceResponse.getUrl());
-		return songRepository.updateSong(response);
+		if (getSongById(songServiceResponse.getId()) != null) {
+			Song response = new Song(
+					songServiceResponse.getId(),
+					songServiceResponse.getTitle(),
+					songServiceResponse.getAuthor(),
+					songServiceResponse.getUrl());
+			return songRepository.updateSong(response);
+		}else {
+			return (Integer) null;
+		}
 	}
 
 	@Override

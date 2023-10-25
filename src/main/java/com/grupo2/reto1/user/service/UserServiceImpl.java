@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.grupo2.reto1.exceptions.UserNotFoundException;
 import com.grupo2.reto1.song.service.SongService;
 import com.grupo2.reto1.user.model.User;
 import com.grupo2.reto1.user.model.UserPostRequest;
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserServiceResponse getUserById(Integer id) {
+	public UserServiceResponse getUserById(Integer id) throws UserNotFoundException{
 		UserServiceResponse response = new UserServiceResponse();
 		User user = userRepository.getUserById(id);
 		response = (new UserServiceResponse(
@@ -63,7 +64,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int updateUser(UserServiceResponse userServiceResponse) {
+	public int updateUser(UserServiceResponse userServiceResponse) throws UserNotFoundException {
 		User response = new User(
 				userServiceResponse.getId(),
 				userServiceResponse.getName(),
@@ -74,7 +75,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int deleteUser(Integer id) {
+	public int deleteUser(Integer id) throws UserNotFoundException  {
 		return userRepository.deleteUser(id);
 	}
 
@@ -93,15 +94,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserServiceResponse getUserWithItsFavourites(Integer id) {
 		UserServiceResponse response = new UserServiceResponse();
-		User user = userRepository.getUserById(id);
-		response = (new UserServiceResponse(
-				user.getId(),
-				user.getName(),
-				user.getSurname(),
-				user.getEmail(),
-				user.getPassword()));
-		response.setFavourites(songService.getAllFavouritesFromUser(id));
-		return response;
+		User user;
+		try {
+			user = userRepository.getUserById(id);
+			response = (new UserServiceResponse(
+					user.getId(),
+					user.getName(),
+					user.getSurname(),
+					user.getEmail(),
+					user.getPassword()));
+			response.setFavourites(songService.getAllFavouritesFromUser(id));
+			return response;
+		} catch (UserNotFoundException e) {
+			return null;
+		}
 	}
 	
 	//Delete from favorites
