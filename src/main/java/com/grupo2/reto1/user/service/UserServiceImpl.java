@@ -80,18 +80,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserServiceResponse logUser(UserLoginPostRequest userDTO) {
-		UserServiceResponse response = new UserServiceResponse();
+	public Integer logUser(UserLoginPostRequest userDTO) {
+		Integer response = 0;
 		List<User> userlist = userRepository.getAllUsers();
 		for (User user : userlist) {
 			if (user.getEmail().equals(userDTO.getEmail()) && user.getPassword().equals(userDTO.getPassword())) {
-				User gottenUser = userRepository.getLogedUserInfo(user.getEmail());
-				response = (new UserServiceResponse(
-						gottenUser.getId(),
-						gottenUser.getName(),
-						gottenUser.getSurname(),
-						gottenUser.getEmail(),
-						gottenUser.getPassword()));
+				response = user.getId();
 			}
 		}
 		return response;

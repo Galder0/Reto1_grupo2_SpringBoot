@@ -25,5 +25,5 @@ public interface UserService {
 
 	int createFavouriteSongFromUser(Integer idSong, Integer id);
 
-	UserServiceResponse logUser(UserLoginPostRequest user);
+	Integer logUser(UserLoginPostRequest user);
 }

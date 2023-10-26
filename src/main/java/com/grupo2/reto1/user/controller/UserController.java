@@ -78,10 +78,13 @@ public class UserController {
 
 	}
 	
-	@GetMapping("/{id}/loggin")
-	public ResponseEntity<UserServiceResponse> logginUser(@Valid @RequestBody UserLoginPostRequest userPostRequest) {
+	//Login
+	@PostMapping("/login")
+	public ResponseEntity<Integer> loginUser(@Valid @RequestBody UserLoginPostRequest userPostRequest) {
 		UserLoginPostRequest user = new UserLoginPostRequest(userPostRequest.getEmail(), userPostRequest.getPassword());
-		return new ResponseEntity<UserServiceResponse>(userService.logUser(user), HttpStatus.OK);
+		return new ResponseEntity<Integer>(userService.logUser(user), HttpStatus.OK);
 	}
-
+	
+	//Get the user's id when logged
+	
 }
