@@ -104,5 +104,19 @@ public class SongServiceImpl implements SongService{
 	public int createFavouriteSongFromUser(Integer idSong, Integer id) {
 		return songRepository.createFavouriteSongFromUser(idSong, id);
 	}
+
+	@Override
+	public List<SongServiceResponse> getAllFavourites(Integer id) {
+		List<SongServiceResponse> response = new ArrayList<>();
+		List<Song> songList = songRepository.getAllFavouritesFromUser(id);
+		for (Song song : songList) {
+			response.add(new SongServiceResponse(
+					song.getId(),
+					song.getTitle(),
+					song.getAuthor(),
+					song.getUrl()));
+		}
+		return response;
+	}
 	
 }

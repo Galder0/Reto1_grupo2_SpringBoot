@@ -23,4 +23,6 @@ public interface SongService {
 
 	int createFavouriteSongFromUser(Integer idSong, Integer id);
 
+	List<SongServiceResponse> getAllFavourites(Integer id);
+
 }
