@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.grupo2.reto1.exceptions.UserNotFoundException;
+import com.grupo2.reto1.user.model.UserLoginPostRequest;
 import com.grupo2.reto1.user.model.UserPostRequest;
 import com.grupo2.reto1.user.model.UserServiceResponse;
 import com.grupo2.reto1.user.service.UserService;
@@ -25,15 +26,15 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/users")
 @RestController
 public class UserController {
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	@GetMapping
 	public ResponseEntity<List<UserServiceResponse>> getAllUsers(){
 		return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.ACCEPTED);
 	}
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<UserServiceResponse> getUserById(@PathVariable("id") Integer id) {
 		try {
@@ -43,13 +44,13 @@ public class UserController {
 
 		}
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<Integer> createUser(@Valid @RequestBody UserPostRequest userPostRequest){
 		UserServiceResponse userServiceResponse = new UserServiceResponse(userPostRequest.getName(), userPostRequest.getSurname(), userPostRequest.getEmail(), userPostRequest.getPassword());
 		return new ResponseEntity<> (userService.createUser(userServiceResponse), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/{id}")
 	public ResponseEntity<Integer> updateUser(@PathVariable("id") Integer id, @RequestBody UserPostRequest userPostRequest){
 		UserServiceResponse userServiceResponse = new UserServiceResponse(userPostRequest.getName(), userPostRequest.getSurname(), userPostRequest.getEmail(), userPostRequest.getPassword());
@@ -62,7 +63,7 @@ public class UserController {
 
 		}
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Integer> deleteUser(@PathVariable("id")Integer id){
 		try {
@@ -71,7 +72,7 @@ public class UserController {
 			  throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
 		}
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
+		}
 	
 	//GET FAVORITE SONGS
 	@GetMapping("/{id}/favourites")
@@ -107,10 +108,13 @@ public class UserController {
 	    }
 	}
 	
-	@GetMapping("/{id}/loggin")
-	public ResponseEntity<Integer> logginUser(@Valid @RequestBody UserPostRequest userPostRequest) {
-		UserPostRequest user = new UserPostRequest(userPostRequest.getEmail(), userPostRequest.getPassword());
+	//Login
+	@PostMapping("/login")
+	public ResponseEntity<Integer> loginUser(@Valid @RequestBody UserLoginPostRequest userPostRequest) {
+		UserLoginPostRequest user = new UserLoginPostRequest(userPostRequest.getEmail(), userPostRequest.getPassword());
 		return new ResponseEntity<Integer>(userService.logUser(user), HttpStatus.OK);
 	}
-
+	
+	//Get the user's id when logged
+	
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.grupo2.reto1.exceptions.UserNotFoundException;
 import com.grupo2.reto1.song.service.SongService;
 import com.grupo2.reto1.user.model.User;
+import com.grupo2.reto1.user.model.UserLoginPostRequest;
 import com.grupo2.reto1.user.model.UserPostRequest;
 import com.grupo2.reto1.user.model.UserServiceResponse;
 import com.grupo2.reto1.user.repository.UserRepository;
@@ -18,13 +19,13 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	SongService songService;
 
 	@Override
 	public List<UserServiceResponse> getAllUsers() {
-    
+
 		List<UserServiceResponse> response = new ArrayList<>();
 		List<User> UserList = userRepository.getAllUsers();
 		for (User user : UserList) {
@@ -58,7 +59,7 @@ public class UserServiceImpl implements UserService {
 				userServiceResponse.getSurname(),
 				userServiceResponse.getEmail(),
 				userServiceResponse.getPassword());
-		
+
 		response.setId((int) 1L);
 		return userRepository.createUser(response);
 	}
@@ -80,12 +81,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Integer logUser(UserPostRequest userDTO) {
+	public Integer logUser(UserLoginPostRequest userDTO) {
 		Integer response = 0;
 		List<User> userlist = userRepository.getAllUsers();
 		for (User user : userlist) {
 			if (user.getEmail().equals(userDTO.getEmail()) && user.getPassword().equals(userDTO.getPassword())) {
-				response = 1;
+				response = user.getId();
 			}
 		}
 		return response;
@@ -109,17 +110,17 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
-	
+
 	//Delete from favorites
 	@Override
 	public int deleteFavouriteFromUser(Integer id, Integer userId) {
 		return songService.deleteFavouriteSong(id, userId);
 	}
-	
+
 	//Create favorites
 	@Override
 	public int createFavouriteSongFromUser(Integer idSong, Integer id) {
 		return songService.createFavouriteSongFromUser(idSong, id);
 	}
 }
-	
+

@@ -30,6 +30,10 @@ public class UserPostRequest {
 		
 	}
 
+	public UserPostRequest() {
+		super();
+	}
+	
 	public UserPostRequest(@NotNull(message = "User name can't be null.") @NotEmpty @NotBlank String name,
 			@NotNull(message = "User surname can't be null.") @NotEmpty @NotBlank String surname,
 			@NotNull(message = "User email can't be null.") @NotEmpty @NotBlank String email,
@@ -37,13 +41,6 @@ public class UserPostRequest {
 		super();
 		this.name = name;
 		this.surname = surname;
-		this.email = email;
-		this.password = password;
-	}
-	
-	public UserPostRequest(@NotNull(message = "User email can't be null.") @NotEmpty @NotBlank String email,
-			@NotNull(message = "Null password") @NotEmpty @NotBlank String password) {
-		super();
 		this.email = email;
 		this.password = password;
 	}
