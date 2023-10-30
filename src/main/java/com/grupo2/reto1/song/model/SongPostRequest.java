@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 
 public class SongPostRequest {
 	
-	
 	private Integer id;
 	
 	@NotNull(message="Song title can't be null.")
