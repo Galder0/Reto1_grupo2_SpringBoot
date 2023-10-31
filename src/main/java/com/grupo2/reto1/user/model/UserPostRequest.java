@@ -25,10 +25,6 @@ public class UserPostRequest {
     @NotEmpty
     @NotBlank
 	private String password;
-	
-	public UserPostRequest() {
-		
-	}
 
 	public UserPostRequest() {
 		super();

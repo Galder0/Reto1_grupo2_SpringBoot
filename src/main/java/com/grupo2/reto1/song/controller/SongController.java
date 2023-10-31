@@ -72,10 +72,12 @@ public class SongController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
 		}
 	}
-	//Lista de Favoritos SOLO canciones
-	@GetMapping("/{id}/favourites")
-	public ResponseEntity<List<SongServiceResponse>> getAllFavourites(@PathVariable("id") Integer id){
-		return new ResponseEntity<>(songService.getAllFavourites(id), HttpStatus.ACCEPTED);
-	}
+//	//Lista de Favoritos SOLO canciones
+//	@GetMapping("/favourites/me")
+//	public ResponseEntity<List<SongServiceResponse>> getAllFavourites(@PathVariable("id") Integer id){
+//		return new ResponseEntity<>(songService.getAllFavourites(id), HttpStatus.ACCEPTED);
+//	}
+	
+	
 
 }

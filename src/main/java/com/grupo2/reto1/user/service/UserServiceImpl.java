@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.grupo2.reto1.exceptions.UserNotFoundException;
@@ -15,7 +18,7 @@ import com.grupo2.reto1.user.model.UserServiceResponse;
 import com.grupo2.reto1.user.repository.UserRepository;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService{
 
 	@Autowired
 	UserRepository userRepository;
@@ -122,5 +125,16 @@ public class UserServiceImpl implements UserService {
 	public int createFavouriteSongFromUser(Integer idSong, Integer id) {
 		return songService.createFavouriteSongFromUser(idSong, id);
 	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    	// esta es la funcion que busca al usuario por email. 
+		// ya que en este caso el campo de login es el email
+    	// si fuese otro, realizar otra funcion
+        return userRepository.findByEmail(username)
+                .orElseThrow(
+                        () -> new UsernameNotFoundException("User " + username + " not found"));
+	}
+
 }
 
