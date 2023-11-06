@@ -1,9 +1,14 @@
 package com.grupo2.reto1.user.model;
 
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.grupo2.reto1.song.model.SongServiceResponse;
 
-public class UserServiceResponse {
+public class UserServiceResponse implements UserDetails {
 	
 	private Integer id;
 	
@@ -101,6 +106,42 @@ public class UserServiceResponse {
 	public String toString() {
 		return "UserServiceResponse [id=" + id + ", name=" + name + ", surname=" + surname + ", email=" + email
 				+ ", password=" + password + ", favourites=" + favourites + "]";
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// los permisos o autoridades que tiene. de momento nada. Aun sin roles
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		// esta funcion tiene que devolver el campo que hace de username. En este caso el email
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// si se hubiese expirado
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// si no esta bloqueada
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// si las credenciales no han sido expiradas
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// si la cuenta esta activada. Si se tiene en BBDD una columna enabled, usariamos dicha columna
+		return true;
 	}
 
 }
