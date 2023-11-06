@@ -122,7 +122,7 @@ public class UserController {
 		UserServiceResponse userDetails = (UserServiceResponse) authentication.getPrincipal();
 		int UserId = userDetails.getId();
 	    // Call the service method to create a favorite song for the user
-	    int favoriteSongId = userService.createFavouriteSongFromUser(UserId, songId);
+	    int favoriteSongId = userService.createFavouriteSongFromUser(songId, UserId);
 
 	    // Check if the creation was successful
 	    if (favoriteSongId > 0) {

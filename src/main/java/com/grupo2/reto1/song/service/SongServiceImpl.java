@@ -95,8 +95,8 @@ public class SongServiceImpl implements SongService{
 	
 	//Delete a song from favorites given an user
 	@Override
-	public int deleteFavouriteSong(Integer id, Integer userId) {
-		return songRepository.deleteFavouriteSong(id, userId);
+	public int deleteFavouriteSong(Integer id, Integer idSong) {
+		return songRepository.deleteFavouriteSong(id, idSong);
 	}
 	
 	//Create a song in favorites given the songs id
