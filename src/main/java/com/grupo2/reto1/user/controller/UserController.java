@@ -131,7 +131,6 @@ public class UserController {
 	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
 	}
-	
 //	//Login
 //	@PostMapping("/login")
 //	public ResponseEntity<Integer> loginUser(@Valid @RequestBody UserLoginPostRequest userPostRequest) {
@@ -210,4 +209,5 @@ public class UserController {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 		}
+
 }
