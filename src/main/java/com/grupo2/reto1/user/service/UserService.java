@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.grupo2.reto1.exceptions.SongNotFoundException;
 import com.grupo2.reto1.exceptions.UserNotFoundException;
-
+import com.grupo2.reto1.song.model.SongServiceResponse;
 import com.grupo2.reto1.user.model.User;
 import com.grupo2.reto1.user.model.UserLoginPostRequest;
 
@@ -31,4 +31,7 @@ public interface UserService {
 	int createFavouriteSongFromUser(Integer idSong, Integer id);
 
 	Integer logUser(UserLoginPostRequest user);
+
+	List<SongServiceResponse> getAllFavourites(Integer id);
+
 }

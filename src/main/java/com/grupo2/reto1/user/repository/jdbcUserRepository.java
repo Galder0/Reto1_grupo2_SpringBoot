@@ -1,8 +1,10 @@
 package com.grupo2.reto1.user.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.grupo2.reto1.exceptions.SongNotFoundException;
 import com.grupo2.reto1.exceptions.UserNotFoundException;
 import com.grupo2.reto1.user.model.User;
+import com.grupo2.reto1.user.model.UserServiceResponse;
 
 @Repository
 public class jdbcUserRepository implements UserRepository{
@@ -31,10 +34,25 @@ public class jdbcUserRepository implements UserRepository{
 		}
 	}
 
+//	@Override
+//	public int createUser(User user) {
+//		return jdbcTemplate.update("Insert into users_table (name, surname, email, password) VALUES(?,?,?,?)",
+//				new Object[] {user.getName(), user.getSurname(), user.getEmail(), user.getPassword()});
+//	}
+	
 	@Override
 	public int createUser(User user) {
-		return jdbcTemplate.update("Insert into users_table (name, surname, email, password) VALUES(?,?,?,?)",
-				new Object[] {user.getName(), user.getSurname(), user.getEmail(), user.getPassword()});
+		// IMPORTANTE: la contrasenia ha tenido que ser cifrada antes de entrar aqui
+		
+		// TODO podria darnos excepcion por que el email es unico		
+		return jdbcTemplate.update("INSERT INTO users_table (name, surname,email, password) VALUES (?, ?, ?, ?)",
+			new Object[] { 
+				user.getName(),
+				user.getSurname(),
+				user.getEmail(), 
+				user.getPassword() // debe estar cifrada de antemano
+			}	
+		);
 	}
 
 	@Override
@@ -53,6 +71,18 @@ public class jdbcUserRepository implements UserRepository{
 			return jdbcTemplate.update("Delete from users_table where id = ?", id);
 		} catch(Exception e){
 			throw new UserNotFoundException("User to delete with id " + id + " not found");
+		}
+	}
+	
+	@Override
+	public Optional<UserServiceResponse> findByEmail(String email) {
+		// veremos el optional mas adelante
+		try {
+			UserServiceResponse user = jdbcTemplate.queryForObject("SELECT * from users_table where email = ?", BeanPropertyRowMapper.newInstance(UserServiceResponse.class), email);
+			return Optional.of(user);
+		} catch (EmptyResultDataAccessException e){
+			e.printStackTrace();
+			return Optional.empty();
 		}
 	}
 
