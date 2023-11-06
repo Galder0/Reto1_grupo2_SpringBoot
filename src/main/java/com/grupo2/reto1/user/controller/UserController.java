@@ -92,31 +92,37 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 	
-	//GET FAVORITE SONGS
-	@GetMapping("/{id}/favourites")
-	public ResponseEntity<UserServiceResponse> getUserWithItsFavourites(@PathVariable("id") Integer id) {
-		try {
-			return new ResponseEntity<>(userService.getUserWithItsFavourites(id), HttpStatus.ACCEPTED);
-		} catch (UserNotFoundException e) {
-			  throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
-		}
-	}
+//	//GET FAVORITE SONGS
+//	@GetMapping("/{id}/favourites")
+//	public ResponseEntity<UserServiceResponse> getUserWithItsFavourites(@PathVariable("id") Integer id) {
+//		try {
+//			return new ResponseEntity<>(userService.getUserWithItsFavourites(id), HttpStatus.ACCEPTED);
+//		} catch (UserNotFoundException e) {
+//			  throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+//		}
+//	}
 	
 	//DELETE SONG FROM FAVORITE
-	@DeleteMapping("/{id}/favourites/{idSong}")
-	public ResponseEntity<Integer> deleteFavouriteFromUser(@PathVariable("id")Integer id, @PathVariable("idSong")Integer idSong){
-		userService.deleteFavouriteFromUser(idSong, id);
+	@DeleteMapping("/favourites/delete/{idSong}")
+	public ResponseEntity<Integer> deleteFavouriteFromUser(Authentication authentication, @PathVariable("idSong")Integer idSong){
+		
+		UserServiceResponse userDetails = (UserServiceResponse) authentication.getPrincipal();
+		int UserId = userDetails.getId();
+		
+		userService.deleteFavouriteFromUser(idSong, UserId);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 	//CREATE FAVORITE SONG
-	@PostMapping("/{userId}/favorites/{songId}")
+	@PostMapping("/favourites/create/{songId}")
 	public ResponseEntity<Integer> createFavoriteSongForUser(
-	        @PathVariable("userId") Integer userId,
+			Authentication authentication,
 	        @PathVariable("songId") Integer songId) {
 
+		UserServiceResponse userDetails = (UserServiceResponse) authentication.getPrincipal();
+		int UserId = userDetails.getId();
 	    // Call the service method to create a favorite song for the user
-	    int favoriteSongId = userService.createFavouriteSongFromUser(userId, songId);
+	    int favoriteSongId = userService.createFavouriteSongFromUser(UserId, songId);
 
 	    // Check if the creation was successful
 	    if (favoriteSongId > 0) {
@@ -197,7 +203,7 @@ public class UserController {
 			
 			UserServiceResponse userDetails = (UserServiceResponse) authentication.getPrincipal();
 			int id = userDetails.getId();
-			return new ResponseEntity<>(songService.getAllFavourites(id), HttpStatus.ACCEPTED);
+			return new ResponseEntity<>(userService.getAllFavourites(id), HttpStatus.ACCEPTED);
 			
 			} catch (BadCredentialsException ex) {
 				// esta excepción salta y estamos devolviendo un 401. se podria cambiar pero cuidado con lo que se devuelve al fallar el login etc

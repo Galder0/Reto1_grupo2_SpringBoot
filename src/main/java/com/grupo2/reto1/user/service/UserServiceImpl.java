@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.grupo2.reto1.exceptions.UserNotFoundException;
+import com.grupo2.reto1.song.model.SongServiceResponse;
 import com.grupo2.reto1.song.service.SongService;
 import com.grupo2.reto1.user.model.User;
 import com.grupo2.reto1.user.model.UserLoginPostRequest;
@@ -134,6 +135,12 @@ public class UserServiceImpl implements UserService, UserDetailsService{
         return userRepository.findByEmail(username)
                 .orElseThrow(
                         () -> new UsernameNotFoundException("User " + username + " not found"));
+	}
+
+	@Override
+	public List<SongServiceResponse> getAllFavourites(Integer id) {
+		
+		return songService.getAllFavourites(id);
 	}
 
 }
