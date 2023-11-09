@@ -20,6 +20,8 @@ public class SongPostRequest {
 	
 	private String url;
 	
+	private String views;
+	
 	public SongPostRequest() {
 		
 	}
@@ -34,6 +36,16 @@ public class SongPostRequest {
 		this.title = title;
 		this.author = author;
 		this.url = url;
+	}
+	
+	public SongPostRequest(Integer id, @NotNull(message = "Song title can't be null.") @NotEmpty @NotBlank String title,
+			@NotNull(message = "Author can't be null.") @NotEmpty @NotBlank String author, String url, String views) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.author = author;
+		this.url = url;
+		this.views = views;
 	}
 
 	public String getTitle() {
@@ -60,10 +72,18 @@ public class SongPostRequest {
 		this.url = url;
 	}
 
+	public String getViews() {
+		return views;
+	}
+
+	public void setViews(String views) {
+		this.views = views;
+	}
+
 	@Override
 	public String toString() {
-		return "SongPostRequest [title=" + title + ", author=" + author + ", url=" + url + "]";
+		return "SongPostRequest [id=" + id + ", title=" + title + ", author=" + author + ", url=" + url + ", views="
+				+ views + "]";
 	}
-	
 
 }
