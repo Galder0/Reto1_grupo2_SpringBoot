@@ -63,14 +63,14 @@ public class jdbcSongRepository implements SongRepository{
 
 	//Delete a favorite song given a user
 	@Override
-	public int deleteFavouriteSong(Integer id, Integer userId) {
-		return jdbcTemplate.update("Delete from favourite_songs where song_id = ? and user_id = ?", id, userId);
+	public int deleteFavouriteSong(Integer idSong, Integer userId) {
+		return jdbcTemplate.update("Delete from favourite_songs where song_id = ? and user_id = ?", idSong, userId);
 	}
 
 	//Create a favorite song given a user
 	@Override
-	public int createFavouriteSongFromUser(Integer idSong, Integer userId) {
-		return jdbcTemplate.update("INSERT into favourite_songs (song_id, user_id) values(?, ?)", idSong, userId);
+	public int createFavouriteSongFromUser(Integer id, Integer idSong) {
+		return jdbcTemplate.update("INSERT into favourite_songs (song_id, user_id) values(?, ?)", id, idSong);
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public interface SongService {
 	
 	List<SongServiceResponse> getAllFavouritesFromUser(Integer id);
 
-	int deleteFavouriteSong(Integer id, Integer userId);
+	int deleteFavouriteSong(Integer idSong, Integer userId);
 
 	int createFavouriteSongFromUser(Integer id, Integer idSong);
 

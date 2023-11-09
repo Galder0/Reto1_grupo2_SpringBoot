@@ -113,21 +113,20 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
-	@PostMapping("/favorites/create/{songId}")
-	public ResponseEntity<Integer> createFavoriteSongForUser(@PathVariable("songId") Integer songId, Authentication authentication) {
+	@PostMapping("/favourites/create/{songId}")
+	public ResponseEntity<Integer> createFavoriteSongForUser(Authentication authentication, @PathVariable("songId") Integer songId) {
 	    try {
 	        UserServiceResponse userDetails = (UserServiceResponse) authentication.getPrincipal();
 	        int userId = userDetails.getId();
 
 	        // Call the service method to create a favorite song for the user
 	        int favoriteSongId = userService.createFavouriteSongFromUser(songId, userId);
-
 	        // Check if the creation was successful
-	        if (favoriteSongId > 0) {
-	            return new ResponseEntity<>(favoriteSongId, HttpStatus.CREATED);
-	        } else {
-	            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	        }
+		        if (favoriteSongId > 0) {
+		            return new ResponseEntity<>(favoriteSongId, HttpStatus.CREATED);
+		        } else {
+		            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		        }
 	    } catch (Exception e) {
 	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	    }

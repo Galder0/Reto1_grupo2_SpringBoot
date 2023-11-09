@@ -26,9 +26,9 @@ public interface UserService {
 
 	UserServiceResponse getUserWithItsFavourites(Integer id)throws UserNotFoundException;
 
-	int deleteFavouriteFromUser(Integer id, Integer userId);
+	int deleteFavouriteFromUser(Integer idSong, Integer userId);
 
-	int createFavouriteSongFromUser(Integer idSong, Integer id);
+	int createFavouriteSongFromUser(Integer idSong, Integer Userid);
 
 	Integer logUser(UserLoginPostRequest user);
 

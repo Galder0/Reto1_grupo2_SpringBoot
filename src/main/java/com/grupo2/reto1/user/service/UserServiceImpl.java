@@ -117,8 +117,8 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
 	//Delete from favorites
 	@Override
-	public int deleteFavouriteFromUser(Integer id, Integer userId) {
-		return songService.deleteFavouriteSong(id, userId);
+	public int deleteFavouriteFromUser(Integer idSong, Integer userId) {
+		return songService.deleteFavouriteSong(idSong, userId);
 	}
 
 	//Create favorites

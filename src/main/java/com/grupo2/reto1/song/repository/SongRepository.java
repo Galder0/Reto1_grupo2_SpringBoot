@@ -19,9 +19,9 @@ public interface SongRepository {
 	
 	List<Song> getAllFavouritesFromUser(Integer id);
 
-	int deleteFavouriteSong(Integer id, Integer userId);
+	int deleteFavouriteSong(Integer idSong, Integer userId);
 
-	int createFavouriteSongFromUser(Integer idSong, Integer id);
+	int createFavouriteSongFromUser(Integer idSong, Integer userId);
 
 	int sumViewToSong(Integer id);
 
