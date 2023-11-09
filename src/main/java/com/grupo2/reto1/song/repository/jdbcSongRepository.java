@@ -58,7 +58,7 @@ public class jdbcSongRepository implements SongRepository{
 	//Get the favorites from user
 	@Override
 	public List<Song> getAllFavouritesFromUser(Integer id) {
-		return jdbcTemplate.query("select songs.id, songs.title, songs.author, songs.URL from songs join favourite_songs on songs.id = favourite_songs.song_id where user_id = ?", BeanPropertyRowMapper.newInstance(Song.class), id);
+		return jdbcTemplate.query("select * from songs join favourite_songs on songs.id = favourite_songs.song_id where user_id = ?", BeanPropertyRowMapper.newInstance(Song.class), id);
 	}
 
 	//Delete a favorite song given a user

@@ -115,7 +115,8 @@ public class SongServiceImpl implements SongService{
 					song.getId(),
 					song.getTitle(),
 					song.getAuthor(),
-					song.getUrl()));
+					song.getUrl(),
+					song.getViews()));
 		}
 		return response;
 	}
