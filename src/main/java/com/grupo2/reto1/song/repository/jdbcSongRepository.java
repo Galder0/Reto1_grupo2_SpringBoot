@@ -69,8 +69,8 @@ public class jdbcSongRepository implements SongRepository{
 
 	//Create a favorite song given a user
 	@Override
-	public int createFavouriteSongFromUser(Integer idSong, Integer id) {
-		return jdbcTemplate.update("INSERT into favourite_songs (song_id, user_id) values(?, ?)", idSong, id);
+	public int createFavouriteSongFromUser(Integer id, Integer idSong) {
+		return jdbcTemplate.update("INSERT into favourite_songs (song_id, user_id) values(?, ?)", id, idSong);
 	}
 
 	@Override
