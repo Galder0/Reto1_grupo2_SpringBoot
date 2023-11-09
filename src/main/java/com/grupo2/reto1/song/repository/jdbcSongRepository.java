@@ -73,4 +73,9 @@ public class jdbcSongRepository implements SongRepository{
 		return jdbcTemplate.update("INSERT into favourite_songs (song_id, user_id) values(?, ?)", id, idSong);
 	}
 
+	@Override
+	public int sumViewToSong(Integer id) {
+		return jdbcTemplate.update("Update songs set views = views + 1 where id = ?", id);
+	}
+
 }

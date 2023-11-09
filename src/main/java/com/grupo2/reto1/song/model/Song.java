@@ -12,6 +12,8 @@ public class Song {
 	
 	private String url;
 	
+	private Integer views;
+	
 	public Song () { 
 		
 	}
@@ -29,6 +31,15 @@ public class Song {
 		this.title = title;
 		this.author = author;
 		this.url = url;
+	}
+
+	public Song(Integer id, String title, String author, String url, Integer views) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.author = author;
+		this.url = url;
+		this.views = views;
 	}
 
 	public Integer getId() {
@@ -63,27 +74,17 @@ public class Song {
 		this.url = url;
 	}
 
+	public Integer getViews() {
+		return views;
+	}
+
+	public void setViews(Integer views) {
+		this.views = views;
+	}
+
 	@Override
 	public String toString() {
-		return "Song [id=" + id + ", title=" + title + ", author=" + author + ", url=" + url + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(author, id, title, url);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Song other = (Song) obj;
-		return Objects.equals(author, other.author) && Objects.equals(id, other.id)
-				&& Objects.equals(title, other.title) && Objects.equals(url, other.url);
+		return "Song [id=" + id + ", title=" + title + ", author=" + author + ", url=" + url + ", views=" + views + "]";
 	}
 	
 }

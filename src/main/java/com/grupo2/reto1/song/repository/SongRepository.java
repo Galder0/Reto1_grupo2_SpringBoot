@@ -23,4 +23,6 @@ public interface SongRepository {
 
 	int createFavouriteSongFromUser(Integer idSong, Integer id);
 
+	int sumViewToSong(Integer id);
+
 }

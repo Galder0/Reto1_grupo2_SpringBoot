@@ -25,4 +25,6 @@ public interface SongService {
 
 	List<SongServiceResponse> getAllFavourites(Integer id);
 
+	int sumViewToSong(Integer id);
+
 }

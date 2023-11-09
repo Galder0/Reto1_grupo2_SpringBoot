@@ -78,6 +78,10 @@ public class SongController {
 //		return new ResponseEntity<>(songService.getAllFavourites(id), HttpStatus.ACCEPTED);
 //	}
 	
-	
+	@PutMapping("/view/{id}")
+	public ResponseEntity<Integer> sumViewToSong(@PathVariable("id") Integer id){	
+		songService.sumViewToSong(id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 
 }

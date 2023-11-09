@@ -13,6 +13,8 @@ public class SongServiceResponse {
 	
 	private String url;
 	
+	private Integer views;
+	
 	public SongServiceResponse() {
 		
 	}
@@ -30,6 +32,15 @@ public class SongServiceResponse {
 		this.title = title;
 		this.author = author;
 		this.url = url;
+	}
+
+	public SongServiceResponse(Integer id, String title, String author, String url, Integer views) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.author = author;
+		this.url = url;
+		this.views = views;
 	}
 
 	public Integer getId() {
@@ -64,9 +75,20 @@ public class SongServiceResponse {
 		this.url = url;
 	}
 
+	public Integer getViews() {
+		return views;
+	}
+
+	public void setViews(Integer views) {
+		this.views = views;
+	}
+
 	@Override
 	public String toString() {
-		return "SongServiceResponse [id=" + id + ", title=" + title + ", author=" + author + ", url=" + url + "]";
+		return "SongServiceResponse [id=" + id + ", title=" + title + ", author=" + author + ", url=" + url + ", views="
+				+ views + "]";
 	}
+	
+	
 
 }

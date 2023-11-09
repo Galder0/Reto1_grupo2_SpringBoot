@@ -26,7 +26,8 @@ public class SongServiceImpl implements SongService{
 					song.getId(),
 					song.getTitle(),
 					song.getAuthor(),
-					song.getUrl()));
+					song.getUrl(),
+					song.getViews()));
 		}
 		return response;
 	}
@@ -117,6 +118,12 @@ public class SongServiceImpl implements SongService{
 					song.getUrl()));
 		}
 		return response;
+	}
+
+	@Override
+	public int sumViewToSong(Integer id) {
+		
+		return songRepository.sumViewToSong(id);
 	}
 	
 }
