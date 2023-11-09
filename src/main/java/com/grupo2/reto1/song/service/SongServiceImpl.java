@@ -102,8 +102,8 @@ public class SongServiceImpl implements SongService{
 	
 	//Create a song in favorites given the songs id
 	@Override
-	public int createFavouriteSongFromUser(Integer idSong, Integer id) {
-		return songRepository.createFavouriteSongFromUser(idSong, id);
+	public int createFavouriteSongFromUser(Integer idSong, Integer userId) {
+		return songRepository.createFavouriteSongFromUser(idSong, userId);
 	}
 
 	@Override

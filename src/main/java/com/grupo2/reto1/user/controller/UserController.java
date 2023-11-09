@@ -114,16 +114,13 @@ public class UserController {
 	}
 	
 	@PostMapping("/favorites/create/{songId}")
-	public ResponseEntity<Integer> createFavoriteSongForUser(
-	    Authentication authentication,
-	    @PathVariable("songId") Integer songId
-	) {
+	public ResponseEntity<Integer> createFavoriteSongForUser(@PathVariable("songId") Integer songId, Authentication authentication) {
 	    try {
 	        UserServiceResponse userDetails = (UserServiceResponse) authentication.getPrincipal();
 	        int userId = userDetails.getId();
 
 	        // Call the service method to create a favorite song for the user
-	        int favoriteSongId = userService.createFavouriteSongFromUser(userId, songId);
+	        int favoriteSongId = userService.createFavouriteSongFromUser(songId, userId);
 
 	        // Check if the creation was successful
 	        if (favoriteSongId > 0) {

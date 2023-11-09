@@ -123,8 +123,8 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 
 	//Create favorites
 	@Override
-	public int createFavouriteSongFromUser(Integer id, Integer idSong) {
-		return songService.createFavouriteSongFromUser(id, idSong);
+	public int createFavouriteSongFromUser(Integer idSong, Integer userId) {
+		return songService.createFavouriteSongFromUser(idSong, userId);
 	}
 
 	@Override
