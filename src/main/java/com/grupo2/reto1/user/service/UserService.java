@@ -34,4 +34,8 @@ public interface UserService {
 
 	List<SongServiceResponse> getAllFavourites(Integer id);
 
+	Integer changePassword(String oldPassword, String newPassword, int id) throws UserNotFoundException;
+
+	Integer changeMail(String oldMail, String newMail, int id) throws UserNotFoundException;
+
 }

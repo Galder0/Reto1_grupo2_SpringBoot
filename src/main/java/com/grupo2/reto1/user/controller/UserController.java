@@ -24,6 +24,8 @@ import com.grupo2.reto1.exceptions.UserNotFoundException;
 import com.grupo2.reto1.security.configuration.JwtTokenUtil;
 import com.grupo2.reto1.security.model.AuthRequest;
 import com.grupo2.reto1.security.model.AuthResponse;
+import com.grupo2.reto1.security.model.MailAuth;
+import com.grupo2.reto1.security.model.PasswordAuth;
 import com.grupo2.reto1.song.model.SongServiceResponse;
 import com.grupo2.reto1.song.service.SongService;
 import com.grupo2.reto1.user.model.UserPostRequest;
@@ -125,10 +127,10 @@ public class UserController {
 		        if (favoriteSongId > 0) {
 		            return new ResponseEntity<>(favoriteSongId, HttpStatus.CREATED);
 		        } else {
-		            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		        }
 	    } catch (Exception e) {
-	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	    }
 	}
 
@@ -205,6 +207,51 @@ public class UserController {
 			int id = userDetails.getId();
 			return new ResponseEntity<>(userService.getAllFavourites(id), HttpStatus.ACCEPTED);
 			
+			} catch (BadCredentialsException ex) {
+				// esta excepción salta y estamos devolviendo un 401. se podria cambiar pero cuidado con lo que se devuelve al fallar el login etc
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+		}
+		
+		@PutMapping("/changePassword")
+		public ResponseEntity<Integer> changePassword(Authentication authentication
+				, @RequestBody @Valid PasswordAuth passwords){
+			try {
+				UserServiceResponse userDetails = (UserServiceResponse) authentication.getPrincipal();
+				int id = userDetails.getId();
+				
+				try {
+					Integer response = userService.changePassword(passwords.getOldPassword(), passwords.getNewPassword(), id);
+					if (response != null) {
+						return new ResponseEntity<>(HttpStatus.ACCEPTED);
+					}else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				} catch (UserNotFoundException e) {
+					throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+				}
+			} catch (BadCredentialsException ex) {
+				// esta excepción salta y estamos devolviendo un 401. se podria cambiar pero cuidado con lo que se devuelve al fallar el login etc
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+		}
+		
+		@PutMapping("/changeEmail")
+		public ResponseEntity<Integer> changeMail(Authentication authentication
+				, @RequestBody @Valid MailAuth mails){
+			try {
+				UserServiceResponse userDetails = (UserServiceResponse) authentication.getPrincipal();
+				int id = userDetails.getId();
+				
+				try {
+					Integer response;
+					response = userService.changeMail(mails.getOldMail(), mails.getNewMail(), id);
+					
+					if (response != null) {
+						return new ResponseEntity<>(HttpStatus.ACCEPTED);
+					}else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+				} catch (UserNotFoundException e) {
+					// TODO Auto-generated catch block
+					throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+				}
 			} catch (BadCredentialsException ex) {
 				// esta excepción salta y estamos devolviendo un 401. se podria cambiar pero cuidado con lo que se devuelve al fallar el login etc
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

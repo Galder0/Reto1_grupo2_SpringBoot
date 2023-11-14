@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.grupo2.reto1.exceptions.UserNotFoundException;
@@ -141,6 +142,28 @@ public class UserServiceImpl implements UserService, UserDetailsService{
 	public List<SongServiceResponse> getAllFavourites(Integer id) {
 		
 		return songService.getAllFavourites(id);
+	}
+
+	@Override
+	public Integer changePassword(String oldPassword, String newPassword, int id) throws UserNotFoundException {
+		UserServiceResponse user = getUserById(id);
+		
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String passwordNew = passwordEncoder.encode(newPassword);
+		// String passwordOld = passwordEncoder.encode(oldPassword);
+		
+		if (passwordEncoder.matches(oldPassword, user.getPassword())) {
+			return userRepository.updatePassword(id, passwordNew);
+		}
+		return null;
+	}
+
+	@Override
+	public Integer changeMail(String oldMail, String newMail, int id) throws UserNotFoundException {
+		UserServiceResponse user = getUserById(id);
+		if (user.getEmail().equals(oldMail)) {
+			return userRepository.updateMail(id, newMail);
+		}else return null;
 	}
 
 }

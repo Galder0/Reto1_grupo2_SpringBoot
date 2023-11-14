@@ -21,4 +21,8 @@ public interface UserRepository {
 
 	Optional<UserServiceResponse> findByEmail(String email);
 
+	int updatePassword(int id, String newPassword);
+
+	Integer updateMail(int id, String newMail);
+
 }

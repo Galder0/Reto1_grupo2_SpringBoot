@@ -86,4 +86,16 @@ public class jdbcUserRepository implements UserRepository{
 		}
 	}
 
+	@Override
+	public int updatePassword(int id, String newPassword) {
+		
+		return jdbcTemplate.update("Update users_table set password = ? where id = ?",newPassword, id);
+	}
+
+	@Override
+	public Integer updateMail(int id, String newMail) {
+		
+		return jdbcTemplate.update("Update users_table set email = ? where id = ?",newMail, id);
+	}
+
 }

@@ -67,7 +67,7 @@ public class WebSecurityConfig {
 				// employees
 				// permitimos el get a cualquiera
 				//.requestMatchers("/api/employees/{id}").permitAll()
-				.requestMatchers(HttpMethod.GET, "/api/users", "/api/users/{id}").permitAll()
+				.requestMatchers(HttpMethod.GET, "/api/users", "/api/songs").permitAll()
 				
 				// para todo lo demas habra que estar autenticado
 				.anyRequest().authenticated()
