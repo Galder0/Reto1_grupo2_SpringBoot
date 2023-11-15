@@ -19,7 +19,7 @@ El backend de Speakr proporciona las siguientes funcionalidades:
 - :lock: Autenticación de usuarios.
 - :musical_note: Búsqueda de vídeos musicales.
 - :file_folder: Gestión de listas de reproducción de favoritos.
-- :card_index: Acces Token mediante JWT. 
+- :card_index: Access Token mediante JWT. 
 
 ## Desarrollado
 Está construido utilizando las siguientes tecnologías:
