@@ -55,9 +55,9 @@ Tenga en cuenta que la mayoría de los métodos no serán accesibles a menos que
 
 ## Contacto
 Para cualquier consulta o soporte relacionado con el backend de Speakr, puede ponerse en contacto con los desarrolladores:
-- :computer:  [Ager](correo@ejemplo.com)
-- :computer:  [Galder](correo@ejemplo.com)
-- :computer:  [Ander](correo@ejemplo.com)
+- :computer:  [Ager](ager.algortape@elorrieta-errekamari.com)
+- :computer:  [Galder](galder.gonzalez-balsiz@elorrieta-errekamari.com)
+- :computer:  [Ander](ander.lopezdevallejohi@elorrieta-errekamari.com)
 
 ## Licencia
 Distribuido bajo la Licencia MIT
