@@ -1,7 +1,8 @@
-![Speakr]()
-[![License](https://img.shields.io/badge/license-MIT-blue)](https://mit-license.org/)
 # Speakr - Backend
-
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+[![License](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](https://mit-license.org/)
 
 Este es el backend de la aplicación móvil Speakr.
 
