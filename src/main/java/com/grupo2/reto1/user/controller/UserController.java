@@ -157,7 +157,7 @@ public class UserController {
 			return ResponseEntity.ok().body(response);
 			
 		} catch (BadCredentialsException ex) {
-			ex.printStackTrace();
+			//ex.printStackTrace();
 			// esta excepción salta y estamos devolviendo un 401. se podria cambiar pero cuidado con lo que se devuelve al fallar el login etc
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
@@ -224,7 +224,9 @@ public class UserController {
 					Integer response = userService.changePassword(passwords.getOldPassword(), passwords.getNewPassword(), id);
 					if (response != null) {
 						return new ResponseEntity<>(HttpStatus.ACCEPTED);
-					}else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+					}else {
+						return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+					}
 				} catch (UserNotFoundException e) {
 					throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
 				}
@@ -234,6 +236,7 @@ public class UserController {
 			}
 		}
 		
+		//THIS IS IN BETA PLEASE DO NOT TOUCH
 		@PutMapping("/changeEmail")
 		public ResponseEntity<Integer> changeMail(Authentication authentication
 				, @RequestBody @Valid MailAuth mails){
