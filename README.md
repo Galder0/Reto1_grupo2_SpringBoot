@@ -18,6 +18,7 @@ El backend de Speakr proporciona las siguientes funcionalidades:
 - :lock: Autenticación de usuarios.
 - :musical_note: Búsqueda de vídeos musicales.
 - :file_folder: Gestión de listas de reproducción de favoritos.
+- :card_index: Acces Token mediante JWT. 
 
 ## Desarrollado
 Está construido utilizando las siguientes tecnologías:
@@ -40,12 +41,16 @@ Asegúrese de tener instalado lo siguiente:
 ```git
 git clone https://github.com/Galder0/Reto1_grupo2_SpringBoot.git
 ```
-  
+2. Importar el archivo como un proyecto Maven.
 3. Modificar el archivo `application.properties` con la configuración necesaria, como las credenciales de la base de datos y otros ajustes específicos del entorno.
-4. Ejecutar la aplicación.
+4. Ejecutar el proyecto.
 
 ## Documentación de la API
-La documentación de la API estará disponible a través de Swagger en la URL generada. Asegúrese de que el servidor esté en funcionamiento para acceder a la documentación.
+La documentación de la API estará disponible a través de Swagger en la URL generada.
+```url
+http://localhost:8080/swagger-ui/index.html#/
+```
+Asegúrese de que el servidor esté en funcionamiento para acceder a la documentación.
 
 ## Contacto
 Para cualquier consulta o soporte relacionado con el backend de Speakr, puede ponerse en contacto con los desarrolladores:
@@ -55,4 +60,3 @@ Para cualquier consulta o soporte relacionado con el backend de Speakr, puede po
 
 ## Licencia
 Distribuido bajo la Licencia MIT
-
