@@ -50,7 +50,8 @@ La documentación de la API estará disponible a través de Swagger en la URL ge
 ```url
 http://localhost:8080/swagger-ui/index.html#/
 ```
-Asegúrese de que el servidor esté en funcionamiento para acceder a la documentación.
+Asegúrese de que el servidor esté en funcionamiento para acceder a la documentación. 
+Tenga en cuenta que la mayoría de los métodos no serán accesibles a menos que esté autenticado.
 
 ## Contacto
 Para cualquier consulta o soporte relacionado con el backend de Speakr, puede ponerse en contacto con los desarrolladores:
